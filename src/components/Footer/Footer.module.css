@@ -1,0 +1,68 @@
+.allList {
+  display: flex;
+  justify-content: center;
+  padding-top: 50px;
+  padding-bottom: 80px;
+}
+.list {
+  display: flex;
+  gap: 100px;
+  color: #ffffff;
+}
+.list1Image {
+  display: flex;
+  gap: 10px;
+}
+.list1Image > p {
+  font-family: "Outfit";
+  font-size: 18px;
+  font-weight: 700;
+}
+.made {
+  font-family: "Open Sans";
+  font-size: 16px;
+  font-weight: 400;
+  margin-top: 20px;
+}
+.list1 > h1 {
+  font-family: "Open Sans";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+}
+.list2 > h3 {
+  font-family: "Outfit";
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 21.6px;
+}
+.list2Item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+  font-family: "Open Sans";
+  font-size: 15px;
+  font-weight: 400;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+}
+.list3 > h3 {
+  font-family: "Outfit";
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 21.6px;
+}
+.list3Item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+  font-family: "Open Sans";
+  font-size: 15px;
+  font-weight: 400;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+}
