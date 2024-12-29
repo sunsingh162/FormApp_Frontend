@@ -2,10 +2,10 @@
 import { useForm } from "react-hook-form";
 import useAuthentication from "../../configs/useAuthentication";
 import { setCurrentUser, setFormErrorMessage } from "../../configs/authSlice";
-import styles from "../SignInPage/SignInPage";
+import styles from "../SignInPage/SignInPage.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { arrow_back } from "../../../public/assets/arrow_back.svg";
+import arrow_back from "../../../public/assets/arrow_back.svg";
 import useGoBack from "../../hooks/useGoBack";
 
 const SignupPage = () => {

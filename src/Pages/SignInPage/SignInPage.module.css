@@ -1,8 +1,8 @@
 .container {
-  background: url("/assets/Signin/half_circle.svg") no-repeat,
-    url("/assets/Signin/half_circle_right'.svg") no-repeat,
-    url("/assets/Signin/top-cake.png") no-repeat,
-    url("/assets/Signin/bottom-cake.png") no-repeat;
+  background: url("/assets/half_circle.svg") no-repeat,
+    url("/assets/half_circle_right'.svg") no-repeat,
+    url("/assets/top-cake.png") no-repeat,
+    url("/assets/bottom-cake.png") no-repeat;
   background-position: 70% 100%, 100% 25%, 20% 35%, 19% 38%;
 }
 .flot_arrow_back {

@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { arrow_back } from "../../../public/assets/arrow_back.svg";
+import arrow_back from "../../../public/assets/arrow_back.svg";
 import styles from "./SignInPage.module.css";
 import { useForm } from "react-hook-form";
 import useAuthentication from "../../configs/useAuthentication";
