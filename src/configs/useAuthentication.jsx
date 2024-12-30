@@ -2,22 +2,34 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useDispatch, useSelector } from "react-redux";
 import useApiFun from "./useApiFun";
 import { jwtDecode } from "jwt-decode";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   setFormErrorMessage,
   setIsAuthenticated,
   setCurrentUser,
   setLoginUser,
+  setUserFolders,
 } from "./authSlice";
 import ValidateCurrToken from "../hooks/useValidateToken";
+import toast from "react-hot-toast";
+import { onCloseModal } from "./modalSlice";
 
 function useAuthentication() {
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
+  const { userID, sharedLink } = useParams();
   const { currentUser, selectedFolder } = useSelector((state) => state.auth);
-  const { addNewUser, loginUser } = useApiFun();
   const navigate = useNavigate();
 
+  const {
+    addNewUser,
+    loginUser,
+    createFolderFun,
+    getFoldersbyUserIdFun,
+    deleteFolderByIdFun,
+  } = useApiFun();
+
+  // Handle signup once we get response from server
   const handleSignupLogic = async (data) => {
     const { response } = data;
     try {
@@ -71,6 +83,21 @@ function useAuthentication() {
     }
   };
 
+  // Handle CreateFolder once we get response from the server
+  const handlecreateFolderLogic = async ({ response }) => {
+    try {
+      if (response.status === 201) {
+        const { userID } = await JSON.parse(localStorage.getItem("loggedUser"));
+        toast.success("New Folder is Created!");
+        dispatch(onCloseModal());
+        fetchAllFolders.mutate(userID);
+      }
+    } catch (error) {
+      toast.error("Something Went Wrong!");
+      throw new error();
+    }
+  };
+
   // Handle Form in folder by selectedFolder
   // 1] User REGISTERATION
   const addUser = useMutation({
@@ -89,9 +116,44 @@ function useAuthentication() {
     onSuccess: handleLoginLogic,
   });
 
+  // 3] Create a folder
+  const createFolder = useMutation({
+    mutationKey: ["FolderDetails"],
+    mutationFn: createFolderFun,
+    onSuccess: handlecreateFolderLogic,
+  });
+
+  // TODO: 4] Fecth all the folders by userId
+  const fetchAllFolders = useMutation({
+    mutationKey: ["userFolders"],
+    mutationFn: getFoldersbyUserIdFun,
+    onSuccess: async ({ response }) => {
+      console.log("");
+      dispatch(setUserFolders(response.data));
+    },
+  });
+
+  // TODO: Delete folders based on ID
+
+  const deleteFolderById = useMutation({
+    mutationKey: ["deleteFolders"],
+    mutationFn: deleteFolderByIdFun,
+    onSuccess: async (data) => {
+      if (data.response.status === 200) {
+        fetchAllFolders.mutate(userID);
+        dispatch(onCloseModal());
+        toast.success("Folder Deleted");
+      } else {
+        toast.error("Something Went Wrong");
+      }
+    },
+  });
+
   return {
     addUser,
     userLogin,
+    createFolder,
+    deleteFolderById,
   };
 }
 
