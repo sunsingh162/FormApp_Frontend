@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useDispatch, useSelector } from "react-redux";
 import useApiFun from "./useApiFun";
 import { jwtDecode } from "jwt-decode";
@@ -13,11 +13,12 @@ import {
 import ValidateCurrToken from "../hooks/useValidateToken";
 import toast from "react-hot-toast";
 import { onCloseModal } from "./modalSlice";
+import { useEffect } from "react";
 
 function useAuthentication() {
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
-  const { userID, sharedLink } = useParams();
+  const { userID } = useParams();
   const { currentUser, selectedFolder } = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
@@ -27,6 +28,11 @@ function useAuthentication() {
     createFolderFun,
     getFoldersbyUserIdFun,
     deleteFolderByIdFun,
+    deleteFormByIdFun,
+    getFormWithFolderIdFun,
+    createFormFun,
+    updateFormByIdFun,
+    getFormDetailsById,
   } = useApiFun();
 
   // Handle signup once we get response from server
@@ -123,7 +129,7 @@ function useAuthentication() {
     onSuccess: handlecreateFolderLogic,
   });
 
-  // TODO: 4] Fecth all the folders by userId
+  // 4] Fetch all the folders by userId
   const fetchAllFolders = useMutation({
     mutationKey: ["userFolders"],
     mutationFn: getFoldersbyUserIdFun,
@@ -133,8 +139,7 @@ function useAuthentication() {
     },
   });
 
-  // TODO: Delete folders based on ID
-
+  // Delete folders based on ID
   const deleteFolderById = useMutation({
     mutationKey: ["deleteFolders"],
     mutationFn: deleteFolderByIdFun,
@@ -149,11 +154,101 @@ function useAuthentication() {
     },
   });
 
+  // Fetch all the form with folderId
+  const formsWithUserId = useQuery({
+    queryKey: ["Forms"],
+    queryFn: async () => {
+      return getFormWithFolderIdFun({
+        userId: userID,
+        folderId: selectedFolder,
+      });
+    },
+    enabled: !!localStorage.getItem("token"),
+  });
+
+  useEffect(() => {
+    formsWithUserId.refetch();
+  }, [selectedFolder || formsWithUserId.isSuccess]);
+
+  // delete a form with formId
+  const deleteFormById = useMutation({
+    mutationKey: ["deleteFolders"],
+    mutationFn: deleteFormByIdFun,
+    onSuccess: async () => {
+      toast.success("Form Deleted Successfully");
+      formsWithUserId.refetch();
+    },
+  });
+
+  // Create a form with or without folderId
+  const createForm = useMutation({
+    mutationKey: ["createForm"],
+    mutationFn: createFormFun,
+    onSuccess: (data) => {
+      if (data.status === 201) {
+        navigate(
+          `/dashboard/${userID}/workspacetool/${
+            selectedFolder ? selectedFolder + "/" : ""
+          }flow/${data?.data._id}`
+        );
+        toast.success("Draft Form has been created");
+      } else {
+        toast.error("Unable to create a Form");
+      }
+
+      queryClient.invalidateQueries("forms");
+    },
+    onError: (error) => {
+      toast.error("Failed to create form");
+      console.error(error);
+    },
+  });
+
+  // Update a Form Id
+
+  const updateForm = useMutation({
+    mutationKey: ["updateForm"],
+    mutationFn: updateFormByIdFun,
+    onSuccess: (data) => {
+      if (data.status === 200) {
+        navigate(
+          `/dashboard/${userID}/workspacetool/${
+            selectedFolder ? selectedFolder + "/" : ""
+          }flow/${data?.data._id}`
+        );
+        toast.success("Form is updated");
+      } else {
+        toast.error("Unable to update a Form");
+      }
+
+      queryClient.invalidateQueries("forms");
+    },
+    onError: (error) => {
+      if (error.response.status === 413) {
+        toast.error("payload is too large");
+      }
+      console.log(error.response);
+    },
+  });
+
+  // Fetch all the form with folderId
+  const getFormDetails = useQuery({
+    queryKey: ["formsDetails"],
+    queryFn: getFormDetailsById,
+    enabled: !!localStorage.getItem("token"),
+  });
+
   return {
     addUser,
     userLogin,
     createFolder,
+    fetchAllFolders,
     deleteFolderById,
+    deleteFormById,
+    formsWithUserId,
+    createForm,
+    updateForm,
+    getFormDetails,
   };
 }
 
