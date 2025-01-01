@@ -46,7 +46,7 @@ function WorkSpace() {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [dispatch]);
 
   function onSubmit(e) {
     e.preventDefault();

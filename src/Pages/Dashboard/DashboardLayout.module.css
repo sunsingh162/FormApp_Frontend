@@ -4,18 +4,19 @@
     justify-content: center;
     height: 64px;
     align-items: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+    border-bottom: 1px solid var(--border-color);
   }
   .wrapper {
     width: 300px;
-    border: 1px solid rgba(255, 255, 255, 0.16);
+    border: 1px solid var(--border-color);
     border-radius: var(--br-7xs);
   }
   .optionsContainer {
     width: 95%;
     height: 40px;
-    background-color: rgba(255, 255, 255, 0);
-    color: rgba(255, 255, 255, 0.92);
+    background-color: var(--link-color);
+    /* color: rgba(255, 255, 255, 0.92); */
+    color: var(--link-color);
     font-weight: var(--font-weight-extrabold);
     outline: none;
     border: none;
@@ -24,13 +25,14 @@
     padding: 0 0.5rem;
   }
   .optionsContainer option {
-    background-color: #171923;
-    color: rgba(255, 255, 255, 0.92);
+    background-color: var(--link-color);
+    /* color: rgba(255, 255, 255, 0.92); */
+    color: var(--link-color);
     font-family: var(--sans);
     font-weight: var(--font-weight-semibold);
     outline: none;
     width: 300px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+    border-bottom: 1px solid var(--border-color);
   }
   .optionsContainer option:last-child {
     color: rgba(255, 165, 76, 1);
