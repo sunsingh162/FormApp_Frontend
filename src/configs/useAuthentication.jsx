@@ -33,6 +33,11 @@ function useAuthentication() {
     createFormFun,
     updateFormByIdFun,
     getFormDetailsById,
+    addLinkDeatilsFun,
+    getSharedLinkUserDetailsFun,
+    addNewUserToLinkDeatilsFun,
+    addUserInputsToSharedLinkFun,
+    updateUserDeatilsFun,
   } = useApiFun();
 
   // Handle signup once we get response from server
@@ -238,6 +243,70 @@ function useAuthentication() {
     enabled: !!localStorage.getItem("token"),
   });
 
+  // TODO: Add Details to the New created link
+  const addDetailsToNewLink = useMutation({
+    mutationKey: ["updateForm"],
+    mutationFn: addLinkDeatilsFun,
+    onSuccess: () => {
+      queryClient.invalidateQueries("forms");
+    },
+    onError: (error) => {
+      throw error("Failed to create form");
+    },
+  });
+
+  // TODO: Fetch all the details of the sharedLink
+  const getSharedLinkUserDetails = useQuery({
+    queryKey: ["LinkDetails"],
+    queryFn: getSharedLinkUserDetailsFun,
+    staleTime: 600000,
+  });
+
+  // TODO: Add userInputs to the sharedLinks
+  const addUserInputsToSharedLink = useMutation({
+    mutationKey: ["formDeatils"],
+    mutationFn: addUserInputsToSharedLinkFun,
+    onSuccess: (data) => {
+      console.log(data);
+      queryClient.invalidateQueries("forms");
+    },
+    onError: (error) => {
+      throw error("Failed to create form");
+    },
+  });
+
+  // TODO:Create a New user in SharedLink
+  const addNewuserToSharedlink = useMutation({
+    mutationKey: ["newuserLinks"],
+    mutationFn: addNewUserToLinkDeatilsFun,
+    onSuccess: () => {
+      queryClient.invalidateQueries("forms");
+    },
+    onError: (error) => {
+      throw error("Failed to create form");
+    },
+  });
+
+  // TODO: Update user credentials or personal datas
+  const updateUserDetails = useMutation({
+    mutationKey: ["newUserDetails"],
+    mutationFn: updateUserDeatilsFun,
+    onSuccess: (data) => {
+      console.log(data);
+      if (data.status === 200) {
+        toast.success("Details Updated");
+      } else {
+        toast.error("something went wrong");
+      }
+      queryClient.invalidateQueries("forms");
+    },
+    onError: (error) => {
+      toast.error("something went wrong");
+
+      throw error("Failed to create form");
+    },
+  });
+
   return {
     addUser,
     userLogin,
@@ -249,6 +318,11 @@ function useAuthentication() {
     createForm,
     updateForm,
     getFormDetails,
+    addDetailsToNewLink,
+    getSharedLinkUserDetails,
+    addUserInputsToSharedLink,
+    addNewuserToSharedlink,
+    updateUserDetails,
   };
 }
 

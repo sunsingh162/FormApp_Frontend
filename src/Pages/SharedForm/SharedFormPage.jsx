@@ -266,14 +266,6 @@ const SharedFormPage = () => {
   return (
     <div
       className={styles.chatContainer}
-      style={
-        getSharedLinkUserDetails.data?.data?.sharedLinkDetails
-          ? {
-              backgroundColor:
-                getSharedLinkUserDetails.data?.data?.sharedLinkDetails.theme,
-            }
-          : { backgroundColor: "#FFFFFF" }
-      }
     >
       <div className={styles.chatWrapper}>
         {formDetails

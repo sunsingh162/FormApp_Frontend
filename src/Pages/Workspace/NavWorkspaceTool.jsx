@@ -26,8 +26,7 @@ function NavWorkSpaceTool({ onSave, setFormName, formName }) {
         userId: userID,
         sharedLink: sharedLink,
         formDetails: getFormDetails.data?.data?.formDetails,
-        totalInputs: getFormDetails.data?.data?.formDetails.length,
-        theme: getFormDetails.data?.data?.theme,
+        totalInputs: getFormDetails.data?.data?.formDetails.length
       });
 
       navigator.clipboard.writeText(sharedLink);
