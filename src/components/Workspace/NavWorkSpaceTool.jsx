@@ -5,6 +5,7 @@ import styles from "./NavWorkSpaceTool.module.css";
 import { v4 as uuidv4 } from "uuid";
 import useAuthentication from "../../configuration/useAuthentication";
 import toast from "react-hot-toast";
+import ThemeToggle from "../Theme/ThemeToggle";
 
 function NavWorkSpaceTool({ onSave, setFormName, formName, handleSetTheme }) {
   const { userID, folderId, formId } = useParams();
@@ -79,6 +80,11 @@ function NavWorkSpaceTool({ onSave, setFormName, formName, handleSetTheme }) {
         >
           Response
         </NavLink>
+        <div className={styles.themeToggle}>
+      <ThemeToggle  />
+      </div>
+      </div>
+      <div className={styles.themeToggle}>
       </div>
       <div className={`flex items-center ${styles.buttons}`}>
         <button onClick={handleSharedLink}>Share</button>

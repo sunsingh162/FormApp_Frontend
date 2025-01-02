@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "../configuration/authSlice";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import styles from "./DashboardLayout.module.css";
+import ThemeToggle from "../components/Theme/ThemeToggle";
 
 function Dashboard() {
   const dispatch = useDispatch();
@@ -46,6 +47,10 @@ function Dashboard() {
                 </option>
               ))}
             </select>
+          </div>
+          <ThemeToggle />
+          <div className={`flex items-center ${styles.buttons}`}>
+            <button>Share</button>
           </div>
         </div>
       )}

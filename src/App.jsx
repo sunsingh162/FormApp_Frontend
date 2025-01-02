@@ -28,6 +28,7 @@ function App() {
   // Upon Logout we have to remove "token", "userName" from local stroage
   const dispatch = useDispatch();
   const { isAuthenticated } = useSelector((state) => state.auth);
+  const { theme } = useSelector((state) => state.theme);
 
   useEffect(() => {
     // Check authentication status on component mount and update it accordingly
@@ -51,7 +52,14 @@ function App() {
   }, [isAuthenticated]);
 
   return (
-    <>
+    <div
+      style={{
+        backgroundColor: theme === 'light' ? '#ffffff' : '#1a1a1a',
+        color: theme === 'light' ? '#000000' : '#ffffff',
+        transition: 'all 0.3s ease',
+        minHeight: '100vh',
+      }}
+    >
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <Routes>
@@ -85,7 +93,7 @@ function App() {
         <ReactQueryDevtools initialIsOpen={false} />
         <Toaster position="top-right" reverseOrder={false} />
       </QueryClientProvider>
-    </>
+    </div>
   );
 }
 

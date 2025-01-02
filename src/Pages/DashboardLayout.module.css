@@ -4,18 +4,18 @@
   justify-content: center;
   height: 64px;
   align-items: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  border-bottom: 1px solid var(--border-color);
 }
 .wrapper {
   width: 300px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 1px solid var(--border-color);
   border-radius: var(--br-7xs);
 }
 .optionsContainer {
   width: 95%;
   height: 40px;
-  background-color: rgba(255, 255, 255, 0);
-  color: rgba(255, 255, 255, 0.92);
+  background-color: var(--link-color);
+  color: var(--link-color);
   font-weight: var(--font-weight-extrabold);
   outline: none;
   border: none;
@@ -37,4 +37,17 @@
 }
 .outlet {
   margin-top: 1.2rem;
+}
+
+.buttons button {
+  height: 100%;
+  padding: 8px 13px;
+  color: white;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  background-color: rgba(26, 95, 255, 1);
+  border-radius: 4px;
+  position: relative;
+  left: 150px;
 }

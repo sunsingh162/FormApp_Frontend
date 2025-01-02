@@ -48,7 +48,7 @@
   outline: none;
   border: none;
   cursor: pointer;
-  background-color: rgba(132, 136, 144, 1);
+  background-color: rgba(26, 95, 255, 1);
   border-radius: 4px;
 }
 .saveButton {
@@ -56,4 +56,8 @@
 }
 .buttons img {
   cursor: pointer;
+}
+
+.themeToggle {
+  margin-left: 50px;
 }

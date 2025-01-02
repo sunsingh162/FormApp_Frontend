@@ -83,6 +83,11 @@ body {
   --indie: "Indie Flower", cursive;
   --poppins: "Poppins", sans-serif;
   --inter: "Inter", sans-serif;
+
+  --background-color: #ffffff;
+  --text-color: #000000;
+
+  --border-color: #ddd;
 }
 
 * {
@@ -202,4 +207,16 @@ body {
 }
 .absolute {
   position: absolute;
+}
+
+.dark-theme {
+  --background-color: #171923;
+  --text-color: #ffffff;
+  --border-color: #555;
+}
+
+.light-theme {
+  --background-color: #ffffff;
+  --text-color: #000000;
+  --border-color: #ddd;
 }
