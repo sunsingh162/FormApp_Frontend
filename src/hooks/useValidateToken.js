@@ -1,7 +1,8 @@
 import { jwtDecode } from "jwt-decode";
 
-// Validate the TOKEN
-const ValidateCurrToken = async (token) => {
+//Validate the TOKEN
+const ValidateCurToken = async (token) => {
+  // Token Validated based on "exp"
   if (!token) {
     return false;
   }
@@ -15,9 +16,8 @@ const ValidateCurrToken = async (token) => {
     }
     return true;
   } catch (error) {
-    console.log(error);
     localStorage.removeItem(token);
     return false;
   }
 };
-export default ValidateCurrToken;
+export default ValidateCurToken;
