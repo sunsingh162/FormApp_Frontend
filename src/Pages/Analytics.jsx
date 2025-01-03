@@ -12,8 +12,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 // Register the required components
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-// const BASE_URL = "https://cuvette-final-evaluation-test.onrender.com/";
-const BASE_URL = "http://localhost:3000/";
+const BASE_URL = "https://formapp-backend-1.onrender.com/";
 function Analytics() {
   const { getFormDetails } = useAuthentication();
   const [sharedLinkDetails, setSharedLinkDetails] = useState(null);
@@ -154,9 +153,9 @@ function Analytics() {
     datasets: [
       {
         label: "Completion Rate",
-        data: [completionRate, 100 - completionRate], // Completed and remaining percentage
-        backgroundColor: ["#4e73df", "#858796"], // Colors for the chart
-        borderColor: ["#ffffff", "#ffffff"], // Optional borders
+        data: [completionRate, 100 - completionRate],
+        backgroundColor: ["#4e73df", "#858796"],
+        borderColor: ["#ffffff", "#ffffff"],
         borderWidth: 1,
       },
     ],
@@ -185,10 +184,6 @@ function Analytics() {
               <h3>Starts</h3>
               <p>{starts}</p>
             </div>
-            {/* <div className={styles.statBox}>
-              <h3>Completion Rate</h3>
-              <p>{completionRate.toFixed(2)}%</p>
-            </div> */}
           </div>
 
           <div className={styles.tableContainer}>
