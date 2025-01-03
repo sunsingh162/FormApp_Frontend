@@ -3,11 +3,14 @@ import { logout } from "../configuration/authSlice";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import styles from "./DashboardLayout.module.css";
 import ThemeToggle from "../components/Theme/ThemeToggle";
+import { useState } from "react";
+import Popup from "../components/SharedModal/SharedModal";
 
 function Dashboard() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { userID } = useParams();
+  const [showPopup, setShowPopup] = useState(false);
 
   const { userName } = JSON.parse(localStorage.getItem("loggedUser"));
   const headerOptions = [
@@ -49,9 +52,10 @@ function Dashboard() {
             </select>
           </div>
           <ThemeToggle />
-          <div className={`flex items-center ${styles.buttons}`}>
+          <div className={`flex items-center ${styles.buttons}`} onClick={() => setShowPopup(true)}>
             <button>Share</button>
           </div>
+          {showPopup && <Popup onClose={() => setShowPopup(false)} />}
         </div>
       )}
       <div className="size-full flex flex-col">
